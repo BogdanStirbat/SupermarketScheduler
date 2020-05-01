@@ -19,3 +19,13 @@ CREATE TABLE supermarket (
   address text NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE time_slot (
+  id SERIAL,
+  max_appointments integer NOT NULL,
+  slot_date date NOT NULL,
+  start_time time NOT NULL,
+  stop_time time NOT NULL,
+  supermarket_id integer NOT NULL,
+  PRIMARY KEY (id)
+);
