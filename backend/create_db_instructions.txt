@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/30641512/create-database-from-command-line
+sudo su - postgres
+createuser supermarket_scheduler_user
+createdb supermarket_scheduler_db
+psql
+alter user supermarket_scheduler_user with encrypted password 'L~5!d$xJ#6<@9As3';
+grant all privileges on database supermarket_scheduler_db to supermarket_scheduler_user;
+
+URL: jdbc:postgresql://localhost:5432/supermarket_scheduler_db
+user: supermarket_scheduler_user
+Pass: L~5!d$xJ#6<@9As3
