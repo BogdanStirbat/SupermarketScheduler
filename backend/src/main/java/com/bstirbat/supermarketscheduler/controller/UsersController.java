@@ -7,7 +7,6 @@ import com.bstirbat.supermarketscheduler.exception.UnauthorizedException;
 import com.bstirbat.supermarketscheduler.exception.ValidationFailedException;
 import com.bstirbat.supermarketscheduler.model.CreateUserModel;
 import com.bstirbat.supermarketscheduler.repository.UserRepository;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -29,7 +28,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public List<User> all(Pageable pageable, @RequestParam(required = false) String filter, OAuth2Authentication authentication) {
+    public List<User> all(OAuth2Authentication authentication) {
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
