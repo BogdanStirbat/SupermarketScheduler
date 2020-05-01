@@ -29,3 +29,10 @@ CREATE TABLE time_slot (
   supermarket_id integer NOT NULL,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE appointment (
+  id SERIAL,
+  user_id integer NOT NULL,
+  time_slot_id integer NOT NULL,
+  PRIMARY KEY (id)
+);
