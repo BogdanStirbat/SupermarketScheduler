@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+.form-container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.form-content {
+  display: inline-block;
+}
+
+.form-error {
+  color: #f40552;
+}
+
+.form-container .input-element {
+  margin-top: 12px;
+}
+
+.form-container input[type=text] {
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+
+.form-container input[type=text]:focus {
+  background-color: #9cf7f2;
+  transition: 0.3s;
+}
+
+.form-container input[type=text]:hover {
+  background-color: #cef6ff;
+  transition: 0.3s;
+}
+
+.form-container input[type=submit] {
+  margin-top: 12px;
+  padding: 12px 30px;
+  border:0 none;
+  border-radius: 5px;
+  background-color: #00909e;
+  color: black;
+}
+
+.form-container input[type=submit]:hover {
+  color: white;
+  background-color: #142850;
+  transition: 0.3s;
+}
