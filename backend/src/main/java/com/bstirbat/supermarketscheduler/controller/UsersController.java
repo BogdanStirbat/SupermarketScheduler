@@ -53,6 +53,15 @@ public class UsersController {
         return foundUser;
     }
 
+    @GetMapping("/current-user")
+    public User getCurrentUser(OAuth2Authentication authentication) {
+        String username = (String) authentication.getUserAuthentication().getPrincipal();
+
+        User user = userRepository.findByUsername(username);
+
+        return user;
+    }
+
     @PostMapping
     public User create(@Valid @RequestBody CreateUserModel createUserModel, OAuth2Authentication authentication) {
         String username = (String) authentication.getUserAuthentication().getPrincipal();
