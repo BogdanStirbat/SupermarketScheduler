@@ -4,13 +4,14 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import { API_BASE_URL, ACCESS_TOKEN, API_TOKEN_USERNAME, API_TOKEN_PASSWORD } from "./constants";
 import Login from './Login';
+import UserNavigation from './UserNavigation';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.handleUserLoggedIn = this.handleUserLoggedIn.bind(this);
+    this.notifyLogin = this.notifyLogin.bind(this);
 
     this.state = {
       currentUser: null,
@@ -19,7 +20,7 @@ class App extends React.Component {
     };
   }
 
-  handleUserLoggedIn(user, accessToken) {
+  notifyLogin(user, accessToken) {
     this.setState({
       currentUser: user,
       accessToken: accessToken,
@@ -29,20 +30,18 @@ class App extends React.Component {
 
   render() {
 
-    if (this.state.isAuthenticated) {
-
-      return (
-        <div>
-          <h1>You are logged in</h1>
-          <h1>Username: {this.state.currentUser.username}</h1>
-          <h1>Role: {this.state.currentUser.role}</h1>
-        </div>
-      );
-    }
-
     return (
       <div>
-        <Login notifyLogin={this.handleUserLoggedIn} />
+        <div>
+          <UserNavigation 
+            notifyLogin={this.notifyLogin} 
+            currentUser={this.state.currentUser}
+            accessToken={this.state.accessToken}
+            isAuthenticated={this.state.isAuthenticated} />
+        </div>
+        <div>
+          <p>Supermarkets</p>
+        </div>
       </div>
     );
   }
