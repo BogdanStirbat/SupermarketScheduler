@@ -81,6 +81,6 @@
 
 .form-container input[type=submit]:hover {
   color: white;
-  background-color: #142850;
+  background-color: #30475e;
   transition: 0.3s;
 }
