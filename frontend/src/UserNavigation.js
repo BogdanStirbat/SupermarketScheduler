@@ -7,17 +7,11 @@ class UserNavigation extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentUser: props.currentUser,
-      accessToken: props.accessToken,
-      isAuthenticated: props.isAuthenticated
-    };
   }
 
   render() {
 
-    if (!this.state.isAuthenticated) {
+    if (!this.props.isAuthenticated) {
 
       return (
         <Router>
@@ -46,7 +40,7 @@ class UserNavigation extends React.Component {
     
     return (
       <div>
-        <p>Hello, {this.state.currentUser.username}!</p>
+        <p>Hello, {this.props.currentUser.username}!</p>
         <p>Log out</p>
       </div>
     );
