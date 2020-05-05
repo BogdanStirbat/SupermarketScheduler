@@ -1,6 +1,8 @@
 import React from 'react';
 import { API_BASE_URL, ACCESS_TOKEN, API_TOKEN_USERNAME, API_TOKEN_PASSWORD } from "./constants";
 
+import { withRouter } from 'react-router-dom';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +12,7 @@ class Login extends React.Component {
       errorMessage: ''
     };
 
+    this.notifyLogin = this.notifyLogin.bind(this);
     this.retrieveCurrentUser = this.retrieveCurrentUser.bind(this);
     this.handleUsernameEdit = this.handleUsernameEdit.bind(this);
     this.handlePasswordEdit = this.handlePasswordEdit.bind(this);
@@ -80,7 +83,7 @@ class Login extends React.Component {
           Promise.resolve(result.json())
               .then(data => {
                 console.log(data);
-                this.props.notifyLogin(data, accessToken);
+                this.notifyLogin(data, accessToken);
               });
         } else {
           console.log('Error retrieving curent user; status=' + result.status);
@@ -93,6 +96,11 @@ class Login extends React.Component {
         this.setState({errorMessage: 'Error connecting to retrieve user API.'});
       }
     );
+  }
+
+  notifyLogin(user, accessToken) {
+    this.props.notifyLogin(user, accessToken);
+    this.props.history.push('/');
   }
 
   render() {
@@ -131,4 +139,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
