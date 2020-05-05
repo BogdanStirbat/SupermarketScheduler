@@ -12,6 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.notifyLogin = this.notifyLogin.bind(this);
+    this.notifyLogout = this.notifyLogout.bind(this);
 
     this.state = {
       currentUser: null,
@@ -28,13 +29,22 @@ class App extends React.Component {
     });
   }
 
+  notifyLogout() {
+    this.setState({
+      currentUser: null,
+      accessToken: null,
+      isAuthenticated: false
+    });
+  }
+
   render() {
 
     if (this.state.isAuthenticated && this.state.currentUser.role == 'REGULAR_USER') {
 
       return (
         <ViewRegularUser
-          notifyLogin={this.notifyLogin} 
+          notifyLogin={this.notifyLogin}
+          notifyLogout={this.notifyLogout}
           currentUser={this.state.currentUser}
           accessToken={this.state.accessToken}
           isAuthenticated={this.state.isAuthenticated} />
@@ -46,6 +56,7 @@ class App extends React.Component {
       return (
         <ViewManagerUser
           notifyLogin={this.notifyLogin} 
+          notifyLogout={this.notifyLogout}
           currentUser={this.state.currentUser}
           accessToken={this.state.accessToken}
           isAuthenticated={this.state.isAuthenticated} />
@@ -55,6 +66,7 @@ class App extends React.Component {
     return (
       <ViewAnonimUser
         notifyLogin={this.notifyLogin} 
+        notifyLogout={this.notifyLogout}
         currentUser={this.state.currentUser}
         accessToken={this.state.accessToken}
         isAuthenticated={this.state.isAuthenticated} />

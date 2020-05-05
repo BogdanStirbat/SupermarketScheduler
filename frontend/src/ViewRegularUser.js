@@ -36,7 +36,8 @@ class ViewRegularUser extends React.Component {
                 accessToken={this.props.accessToken} />
             </Route>
             <Route exact path="/logout">
-              <Logout />
+              <Logout 
+                notifyLogout={this.props.notifyLogout} />
             </Route>
           </Switch>
         </div>
