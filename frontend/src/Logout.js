@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { withRouter } from 'react-router-dom';
-
 class Logout extends React.Component {
 
   constructor(props) {
@@ -12,7 +10,6 @@ class Logout extends React.Component {
 
   handleLogout(event) {
     this.props.notifyLogout();
-    this.props.history.push('/');
   }
 
   render() {
@@ -30,4 +27,4 @@ class Logout extends React.Component {
   }
 }
 
-export default withRouter(Logout);
+export default Logout;

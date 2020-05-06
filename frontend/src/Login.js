@@ -1,8 +1,6 @@
 import React from 'react';
 import { API_BASE_URL, ACCESS_TOKEN, API_TOKEN_USERNAME, API_TOKEN_PASSWORD } from "./constants";
 
-import { withRouter } from 'react-router-dom';
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -100,7 +98,6 @@ class Login extends React.Component {
 
   notifyLogin(user, accessToken) {
     this.props.notifyLogin(user, accessToken);
-    this.props.history.push('/');
   }
 
   render() {
@@ -139,4 +136,4 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(Login);
+export default Login;

@@ -48,6 +48,9 @@ class ViewAnonimUser extends React.Component {
             <Route exact path='/signup'>
               <Signup />
             </Route>
+            <Route exact path='/logout'>
+            <Redirect to="/" />
+            </Route>
           </Switch>
         </div>
       </Router>
