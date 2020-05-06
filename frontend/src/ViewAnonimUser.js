@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from "react-router-dom";
 
 import Home from './Home';
 import Login from './Login';
@@ -16,17 +16,21 @@ class ViewAnonimUser extends React.Component {
     return (
       <Router>
         <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Signup</Link>
-            </li>
-          </ul>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <NavLink exact to="/signup" activeClassName="active">Signup</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/login" activeClassName="active">Login</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/" activeClassName="active">Home</NavLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
 
           <Switch>
             <Route exact path='/'>

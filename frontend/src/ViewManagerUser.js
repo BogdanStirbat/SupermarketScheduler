@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from "react-router-dom";
 
 import Home from './Home';
 import Logout from './Logout';
@@ -14,20 +14,21 @@ class ViewManagerUser extends React.Component {
     return (
       <Router>
         <div>
-          <ul>
-            <li>
-              Hello, {this.props.currentUser.username}!
-            </li>
-            <li>
-              manager user
-            </li>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/logout">Logout</Link>
-            </li>
-          </ul>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <NavLink exact to="/logout" activeClassName="active">Logout</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/" activeClassName="active">Home</NavLink>
+                </li>
+                <li>
+                  <p>Hello, {this.props.currentUser.username}!</p>
+                </li>
+              </ul>
+            </nav>
+          </div>
 
           <Switch>
             <Route exact path="/">

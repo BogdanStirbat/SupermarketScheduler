@@ -37,6 +37,73 @@
   }
 }
 
+
+/*
+    Body
+*/
+
+body {
+  background-color: #dae1e7;
+  color: #142850;
+}
+
+/*
+    Nav bar
+*/
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul:last-child {
+  margin-right: 160px;
+}
+
+nav ul * {
+  float: right;
+  display: block;
+  margin-right: 10px;
+}
+
+nav:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+nav a {
+  text-decoration: none;
+  color: #142850;
+  padding: 10px;
+  padding-top: 16px;
+  font-weight: 800;
+}
+
+nav a.active {
+  color: white;
+  background-color: #142850;
+}
+
+nav a:hover {
+  color: white;
+  background-color: #30475e;
+  transition: 0.3s;
+}
+
+nav p {
+  text-decoration: none;
+  color: #142850;
+  font-weight: 800;
+  margin-bottom: 40px;
+}
+
+
+/*
+    Forms
+*/
+
 .form-container {
   margin-top: 100px;
   text-align: center;
