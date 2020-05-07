@@ -55,7 +55,9 @@ class ViewManagerUser extends React.Component {
                 notifyLogout={this.props.notifyLogout} />
             </Route>
             <Route exact path="/add-user">
-              <AddUser />
+              <AddUser
+                currentUser={this.props.currentUser}
+                accessToken={this.props.accessToken} />
             </Route>
             <Route exact path="/add-supermarket">
               <AddSupermarket />

@@ -117,6 +117,10 @@ nav p {
   color: #f40552;
 }
 
+.form-success {
+  color: #06623b;
+}
+
 .form-container .input-element {
   margin-top: 12px;
 }
@@ -133,6 +137,17 @@ nav p {
 }
 
 .form-container input[type=text]:hover {
+  background-color: #cef6ff;
+  transition: 0.3s;
+}
+
+.form-container select {
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+
+.form-container select:hover {
   background-color: #cef6ff;
   transition: 0.3s;
 }
