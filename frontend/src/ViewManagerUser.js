@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from "
 
 import Home from './Home';
 import Logout from './Logout';
+import AddUser from './AddUser';
+import AddSupermarket from './AddSupermarket';
 
 class ViewManagerUser extends React.Component {
 
@@ -21,6 +23,12 @@ class ViewManagerUser extends React.Component {
                   <NavLink exact to="/logout" activeClassName="active">Logout</NavLink>
                 </li>
                 <li>
+                  <NavLink exact to="/add-user" activeClassName="active">Add user</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/add-supermarket" activeClassName="active">Add supermarket</NavLink>
+                </li>
+                <li>
                   <NavLink exact to="/" activeClassName="active">Home</NavLink>
                 </li>
                 <li>
@@ -36,15 +44,21 @@ class ViewManagerUser extends React.Component {
                 currentUser={this.props.currentUser}
                 accessToken={this.props.accessToken} />
             </Route>
-            <Route exact path="/logout">
-              <Logout 
-                notifyLogout={this.props.notifyLogout} />
-            </Route>
             <Route exact path="/login">
               <Redirect to="/" />
             </Route>
             <Route exact path="/signup">
               <Redirect to="/" />
+            </Route>
+            <Route exact path="/logout">
+              <Logout 
+                notifyLogout={this.props.notifyLogout} />
+            </Route>
+            <Route exact path="/add-user">
+              <AddUser />
+            </Route>
+            <Route exact path="/add-supermarket">
+              <AddSupermarket />
             </Route>
           </Switch>
         </div>
