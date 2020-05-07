@@ -43,6 +43,9 @@ class ViewManagerUser extends React.Component {
             <Route exact path="/login">
               <Redirect to="/" />
             </Route>
+            <Route exact path="/signup">
+              <Redirect to="/" />
+            </Route>
           </Switch>
         </div>
       </Router>

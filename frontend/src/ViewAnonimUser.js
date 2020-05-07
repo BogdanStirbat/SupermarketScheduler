@@ -46,7 +46,8 @@ class ViewAnonimUser extends React.Component {
                 isAuthenticated={this.props.isAuthenticated} />
             </Route>
             <Route exact path='/signup'>
-              <Signup />
+              <Signup 
+                notifyLogin={this.props.notifyLogin} />
             </Route>
             <Route exact path='/logout'>
             <Redirect to="/" />
