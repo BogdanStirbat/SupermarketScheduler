@@ -61,7 +61,7 @@ class Signup extends React.Component {
   logIn(username, password) {
 
     const loginUrl = API_BASE_URL + '/oauth/token';
-    let formData = "grant_type=password&" + "username=" + username + "&password=" + password;
+    let formData = "grant_type=password&" + "username=" + username + "&password=" + encodeURIComponent(password);
 
     fetch(loginUrl, {
       method: 'POST',

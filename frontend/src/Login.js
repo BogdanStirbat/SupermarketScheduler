@@ -29,7 +29,7 @@ class Login extends React.Component {
     console.log("Login was submitted.");
 
     const loginUrl = API_BASE_URL + '/oauth/token';
-    let formData = "grant_type=password&" + "username=" + this.state.username + "&password=" + this.state.password;
+    let formData = "grant_type=password&" + "username=" + this.state.username + "&password=" + encodeURIComponent(this.state.password);
 
     fetch(loginUrl, {
       method: 'POST',
