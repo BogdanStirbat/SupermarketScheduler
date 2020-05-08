@@ -141,6 +141,22 @@ nav p {
   transition: 0.3s;
 }
 
+.form-container textarea {
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+
+.form-container textarea:focus {
+  background-color: #9cf7f2;
+  transition: 0.3s;
+}
+
+.form-container textarea:hover {
+  background-color: #cef6ff;
+  transition: 0.3s;
+}
+
 .form-container select {
   border-radius: 4px;
   box-sizing: border-box;

@@ -60,7 +60,9 @@ class ViewManagerUser extends React.Component {
                 accessToken={this.props.accessToken} />
             </Route>
             <Route exact path="/add-supermarket">
-              <AddSupermarket />
+              <AddSupermarket 
+                currentUser={this.props.currentUser}
+                accessToken={this.props.accessToken} />
             </Route>
           </Switch>
         </div>
