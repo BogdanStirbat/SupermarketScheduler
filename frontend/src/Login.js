@@ -26,7 +26,6 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("Login was submitted.");
 
     const loginUrl = API_BASE_URL + '/oauth/token';
     let formData = "grant_type=password&" + "username=" + this.state.username + "&password=" + encodeURIComponent(this.state.password);
@@ -41,24 +40,18 @@ class Login extends React.Component {
     })
     .then(
       (result) => {
-        console.log('Success!');
         if (result.status == 200) {
           Promise.resolve(result.json())
               .then(data => {
-                console.log(data);
-                console.log(data["access_token"]);
                 let accessToken = data["access_token"];
                 this.setState({errorMessage: ''});
                 this.retrieveCurrentUser(accessToken);
               });
         } else {
-          console.log('Error logging in; status=' + result.status);
           this.setState({errorMessage: 'Error logging in, status: ' + result.status});
         }
       },
       (error) => {
-        console.log('Error!');
-        console.log(error);
         this.setState({errorMessage: 'Error connecting to login API.'});
       }
     );
@@ -80,17 +73,13 @@ class Login extends React.Component {
         if (result.status == 200) {
           Promise.resolve(result.json())
               .then(data => {
-                console.log(data);
                 this.notifyLogin(data, accessToken);
               });
         } else {
-          console.log('Error retrieving curent user; status=' + result.status);
           this.setState({errorMessage: 'Error retrieving current user, status: ' + result.status});
         }
       },
       (error) => { 
-        console.log('Error!');
-        console.log(error);
         this.setState({errorMessage: 'Error connecting to retrieve user API.'});
       }
     );
