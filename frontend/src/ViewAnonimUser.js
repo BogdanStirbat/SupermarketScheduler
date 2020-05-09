@@ -1,9 +1,10 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect, useParams } from "react-router-dom";
 
 import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
+import PageSupermarket from './PageSupermarket';
 
 class ViewAnonimUser extends React.Component {
 
@@ -50,13 +51,27 @@ class ViewAnonimUser extends React.Component {
                 notifyLogin={this.props.notifyLogin} />
             </Route>
             <Route exact path='/logout'>
-            <Redirect to="/" />
+              <Redirect to="/" />
             </Route>
+            <Route 
+              path="/supermarkets/:id" 
+              children={<RenderSupermerket currentUser={this.props.currentUser} accessToken={this.props.accessToken} />} />
           </Switch>
         </div>
       </Router>
     );
   }
+}
+
+function RenderSupermerket(props) {
+  let { id } = useParams();
+
+  return(
+    <PageSupermarket
+      currentUser={props.currentUser}
+      accessToken={props.accessToken}
+      id={id} />
+  );
 }
 
 export default ViewAnonimUser;

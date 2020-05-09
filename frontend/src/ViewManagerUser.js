@@ -1,10 +1,11 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect, useParams } from "react-router-dom";
 
 import Home from './Home';
 import Logout from './Logout';
 import AddUser from './AddUser';
 import AddSupermarket from './AddSupermarket';
+import PageSupermarket from './PageSupermarket';
 
 class ViewManagerUser extends React.Component {
 
@@ -64,11 +65,25 @@ class ViewManagerUser extends React.Component {
                 currentUser={this.props.currentUser}
                 accessToken={this.props.accessToken} />
             </Route>
+            <Route 
+              path="/supermarkets/:id" 
+              children={<RenderSupermerket currentUser={this.props.currentUser} accessToken={this.props.accessToken} />} />
           </Switch>
         </div>
       </Router>
     );
   }
+}
+
+function RenderSupermerket(props) {
+  let { id } = useParams();
+
+  return(
+    <PageSupermarket
+      currentUser={props.currentUser}
+      accessToken={props.accessToken}
+      id={id} />
+  );
 }
 
 export default ViewManagerUser;

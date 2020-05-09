@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { API_BASE_URL } from "./constants";
+import { Link } from "react-router-dom";
 
 class Home extends React.Component {
 
@@ -79,10 +80,11 @@ function SuperMarketsContent(props) {
     (supermarket) => 
        (
         <div key={supermarket.id.toString()} className="supermarket">
-          {supermarket.name}
+          <Link to={"/supermarkets/" + supermarket.id}>
+            {supermarket.name}
+          </Link>
         </div>
       )
-    
   );
 
   return (
