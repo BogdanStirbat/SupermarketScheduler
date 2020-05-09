@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect, usePara
 import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
-import PageSupermarket from './PageSupermarket';
+import SupermerketView from './SupermarketView';
 
 class ViewAnonimUser extends React.Component {
 
@@ -67,7 +67,7 @@ function RenderSupermerket(props) {
   let { id } = useParams();
 
   return(
-    <PageSupermarket
+    <SupermerketView
       currentUser={props.currentUser}
       accessToken={props.accessToken}
       id={id} />
