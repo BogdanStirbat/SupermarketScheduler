@@ -182,3 +182,31 @@ nav p {
   background-color: #30475e;
   transition: 0.3s;
 }
+
+/*
+    Body of 'Home' page
+*/
+
+.main-container {
+  margin-left: 60px;
+}
+
+.supermarkets-list {
+  margin-left: 10px;
+  margin-top: 40px;
+}
+
+.supermarket {
+  margin-top: 15px;
+}
+
+.error {
+  color: #f40552;
+  margin-left: 20px;
+  margin-top: 45px;
+}
+
+.info {
+  margin-left: 20px;
+  margin-top: 45px;
+}

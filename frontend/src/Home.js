@@ -56,10 +56,10 @@ class Home extends React.Component {
     return (
       <div className="main-container">
         <h1>Supermarkets</h1>
-        <div>
+        <div className="error">
           {this.state.errorMessage}
         </div>
-        <div>
+        <div className="info">
           {this.state.infoMessage}
         </div>
         <SuperMarketsContent supermarkets={this.state.supermarkets} />
@@ -76,19 +76,19 @@ function SuperMarketsContent(props) {
   }
 
   let listItems = supermarkets.map(
-    (supermarket) => {
-      return (
-        <li key={supermarket.id.toString()}>
+    (supermarket) => 
+       (
+        <div key={supermarket.id.toString()} className="supermarket">
           {supermarket.name}
-        </li>
-      );
-    }
+        </div>
+      )
+    
   );
 
   return (
-    <ul className='supermarkets-list'>
+    <div className="supermarkets-list">
       {listItems}
-    </ul>
+    </div>
   );
 }
 
