@@ -44,6 +44,10 @@ public class SupermarketController {
 
     @PostMapping
     public Supermarket create(@Valid @RequestBody CreateSupermarketModel createSupermarketModel, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException(String.format("Only manager users have this permission."));
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
@@ -60,6 +64,10 @@ public class SupermarketController {
 
     @PutMapping("/{id}")
     public Supermarket update(@PathVariable Long id, @RequestBody CreateSupermarketModel createSupermarketModel, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException(String.format("Only manager users have this permission."));
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
@@ -82,6 +90,10 @@ public class SupermarketController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException(String.format("Only manager users have this permission."));
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
