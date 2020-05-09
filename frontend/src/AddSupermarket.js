@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_BASE_URL, ACCESS_TOKEN, API_TOKEN_USERNAME, API_TOKEN_PASSWORD } from "./constants";
+import { API_BASE_URL } from "./constants";
 
 class AddSupermarket extends React.Component {
 
