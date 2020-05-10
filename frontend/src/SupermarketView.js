@@ -1,5 +1,6 @@
 import React from 'react';
 import { API_BASE_URL } from "./constants";
+import { Link } from "react-router-dom";
 
 class SupermerketView extends React.Component {
 
@@ -55,7 +56,7 @@ class SupermerketView extends React.Component {
     
     return (
       <div className="main-container">
-        <h1>Supermarkets</h1>
+        <h1>Supermarket</h1>
         <div className="error">
           {this.state.errorMessage}
         </div>
@@ -63,6 +64,7 @@ class SupermerketView extends React.Component {
           {this.state.infoMessage}
         </div>
         <SuperMarketContent supermarket={this.state.supermarket} />
+        <AddTimeSlots supermarket={this.state.supermarket} currentUser={this.props.currentUser} />
       </div>
     );
   }
@@ -79,6 +81,27 @@ function SuperMarketContent(props) {
     <div className="supermarkets-list">
       <p>{supermarket.name}</p>
       <p>{supermarket.address}</p>
+    </div>
+  );
+}
+
+function AddTimeSlots(props) {
+  let supermarket = props.supermarket;
+  let currentUser = props.currentUser;
+
+  if (!supermarket || supermarket == null) {
+    return null;
+  }
+
+  if (!currentUser || currentUser.role != 'MANAGER_USER') {
+    return null;
+  }
+
+  return (
+    <div className="add-time-slots" >
+      <Link to={"/supermarkets/" + supermarket.id + "/add-time-slot"}>
+        Add time slots
+      </Link>
     </div>
   );
 }

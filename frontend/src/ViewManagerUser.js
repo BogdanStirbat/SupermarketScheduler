@@ -66,6 +66,9 @@ class ViewManagerUser extends React.Component {
                 accessToken={this.props.accessToken} />
             </Route>
             <Route 
+              path="/supermarkets/:id/add-time-slot" 
+              children={<RenderAddTimeSlots currentUser={this.props.currentUser} accessToken={this.props.accessToken} />} />
+            <Route 
               path="/supermarkets/:id" 
               children={<RenderSupermerket currentUser={this.props.currentUser} accessToken={this.props.accessToken} />} />
           </Switch>
@@ -84,6 +87,17 @@ function RenderSupermerket(props) {
       accessToken={props.accessToken}
       id={id} />
   );
+}
+
+function RenderAddTimeSlots(props) {
+  let { id } = useParams();
+
+  return (
+    <div>
+      Add time slots for id: {id}
+    </div>
+  );
+
 }
 
 export default ViewManagerUser;

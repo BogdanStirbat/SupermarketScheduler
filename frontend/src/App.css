@@ -211,3 +211,28 @@ nav p {
   margin-left: 20px;
   margin-top: 45px;
 }
+
+/*
+  'View supermarket' main page 
+*/
+
+.add-time-slots {
+  margin-left: 25px;
+  margin-top: 40px;
+}
+
+.add-time-slots a {
+  text-decoration: none;
+  color: #142850;
+  padding: 12px 30px;
+  border:0 none;
+  border-radius: 5px;
+  background-color: #00909e;
+  color: black;
+}
+
+.add-time-slots a:hover {
+  color: white;
+  background-color: #30475e;
+  transition: 0.3s;
+}
