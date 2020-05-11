@@ -201,6 +201,22 @@ nav p {
   margin-top: 15px;
 }
 
+.time-slot-list {
+  margin-left: 10px;
+  width: 320px;
+  height: 400px;
+  overflow: scroll;
+  scrollbar-color: #142850 #f9f9f9;
+}
+
+.time-slot-element {
+  margin-top: 25px;
+}
+
+.time-slot-element div {
+  margin-top: 10px;
+}
+
 .error {
   color: #f40552;
   margin-left: 20px;

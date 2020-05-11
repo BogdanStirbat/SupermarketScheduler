@@ -9,9 +9,12 @@ class SupermerketView extends React.Component {
 
     this.state = {
       supermarket: null,
+      timeslots: [],
       infoMessage: 'The list of supermarkets is loading ...',
       errorMessage: ''
     }
+
+    this.loadTimeSlots = this.loadTimeSlots.bind(this);
   }
 
   componentDidMount() {
@@ -34,12 +37,52 @@ class SupermerketView extends React.Component {
                 infoMessage: '',
                 errorMessage: ''
               });
+
+              this.loadTimeSlots();
             }
           );
         } else {
           this.setState({
             infoMessage: '',
             errorMessage: 'An error oocurred retrieving the supermarket, status: ' + result.status
+          });
+        }
+      },
+      (error) => {
+        this.setState({
+          infoMessage: '',
+          errorMessage: 'An error occurred connecting to the API'
+        });
+      }
+    );
+  }
+
+  loadTimeSlots() {
+    const url = API_BASE_URL + '/api/timeslots/supermarket/' + this.props.id;
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(
+      (result) => {
+        if (result.status == 200) {
+          Promise.resolve(result.json())
+          .then(
+            (data) => {
+              this.setState({
+                timeslots: data,
+                infoMessage: '',
+                errorMessage: ''
+              });
+            }
+          );
+        } else {
+          this.setState({
+            infoMessage: '',
+            errorMessage: 'An error oocurred retrieving available time slots, status: ' + result.status
           });
         }
       },
@@ -64,6 +107,7 @@ class SupermerketView extends React.Component {
           {this.state.infoMessage}
         </div>
         <SuperMarketContent supermarket={this.state.supermarket} />
+        <RenderTimeSlots timeslots={this.state.timeslots} />
         <AddTimeSlots supermarket={this.state.supermarket} currentUser={this.props.currentUser} />
       </div>
     );
@@ -81,6 +125,32 @@ function SuperMarketContent(props) {
     <div className="supermarkets-list">
       <p>{supermarket.name}</p>
       <p>{supermarket.address}</p>
+    </div>
+  );
+}
+
+function RenderTimeSlots(props) {
+  let timeslots = props.timeslots;
+
+  if (!timeslots || timeslots.length == 0) {
+    return null;
+  }
+
+  let listOfTimeSlots = timeslots.map(
+    (timeSlot) => (
+
+      <div key={timeSlot.id.toString()} className="time-slot-element">
+        <div>
+          On {timeSlot.date}, from {timeSlot.startTime} to {timeSlot.stopTime}
+        </div>
+        <div>Max appointments: {timeSlot.maxAppointments}</div>
+      </div>
+    )
+  );
+
+  return (
+    <div className="time-slot-list">
+      {listOfTimeSlots}
     </div>
   );
 }
