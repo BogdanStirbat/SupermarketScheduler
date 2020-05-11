@@ -7,20 +7,31 @@ import com.bstirbat.supermarketscheduler.entity.User;
 import com.bstirbat.supermarketscheduler.exception.NotFoundException;
 import com.bstirbat.supermarketscheduler.exception.UnauthorizedException;
 import com.bstirbat.supermarketscheduler.exception.ValidationFailedException;
+import com.bstirbat.supermarketscheduler.model.CreateMultipleTimeSlotsModel;
 import com.bstirbat.supermarketscheduler.model.CreateTimeSlotModel;
 import com.bstirbat.supermarketscheduler.repository.SupermarketRepository;
 import com.bstirbat.supermarketscheduler.repository.TimeSlotRepository;
 import com.bstirbat.supermarketscheduler.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/api/timeslots")
 public class TimeSlotController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TimeSlotController.class);
 
     private TimeSlotRepository timeSlotRepository;
     private SupermarketRepository supermarketRepository;
@@ -47,7 +58,7 @@ public class TimeSlotController {
     }
 
     @PostMapping
-    public TimeSlot create(@Valid @RequestBody CreateTimeSlotModel createTimeSlotModel, OAuth2Authentication authentication) {
+    public List<TimeSlot> create(@Valid @RequestBody CreateMultipleTimeSlotsModel createMultipleTimeSlotsModel, OAuth2Authentication authentication) {
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
@@ -56,17 +67,31 @@ public class TimeSlotController {
             throw new UnauthorizedException(String.format("User %s doesn't have this permission", username));
         }
 
-        Supermarket supermarket = supermarketRepository.findById(createTimeSlotModel.getSupermarketId())
-                .orElseThrow(() -> new ValidationFailedException(String.format("Could't find supermarket with id %s", createTimeSlotModel.getSupermarketId())));
+        Supermarket supermarket = supermarketRepository.findById(createMultipleTimeSlotsModel.getSupermarketId())
+                .orElseThrow(() -> new ValidationFailedException(String.format("Could't find supermarket with id %s", createMultipleTimeSlotsModel.getSupermarketId())));
 
-        TimeSlot timeSlot = new TimeSlot();
-        timeSlot.setMaxAppointments(createTimeSlotModel.getMaxAppointments());
-        timeSlot.setDate(createTimeSlotModel.getDate());
-        timeSlot.setStartTime(createTimeSlotModel.getStartTime());
-        timeSlot.setStopTime(createTimeSlotModel.getStopTime());
-        timeSlot.setSupermarket(supermarket);
+        LocalTime startTime = createMultipleTimeSlotsModel.getStartTime();
+        LocalTime stopTime = createMultipleTimeSlotsModel.getStopTime();
+        List<TimeSlot> result = new ArrayList<>();
 
-        return timeSlotRepository.save(timeSlot);
+        while (startTime.isBefore(stopTime)) {
+
+            LocalTime finishTime = startTime.plus(createMultipleTimeSlotsModel.getDurationOfAppointment(), ChronoUnit.MINUTES);
+
+            TimeSlot timeSlot = new TimeSlot();
+            timeSlot.setDate(createMultipleTimeSlotsModel.getDate());
+            timeSlot.setMaxAppointments(createMultipleTimeSlotsModel.getMaxAppointments());
+            timeSlot.setSupermarket(supermarket);
+            timeSlot.setStartTime(startTime);
+            timeSlot.setStopTime(finishTime.isBefore(stopTime)? finishTime: stopTime);
+
+            timeSlot = timeSlotRepository.save(timeSlot);
+            result.add(timeSlot);
+
+            startTime = finishTime;
+        }
+
+        return result;
     }
 
     @PutMapping

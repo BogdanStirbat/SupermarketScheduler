@@ -125,18 +125,18 @@ nav p {
   margin-top: 12px;
 }
 
-.form-container input[type=text] {
+.form-container input[type=text], input[type=number], input[type=date] {
   border-radius: 4px;
   box-sizing: border-box;
   padding: 6px 10px;
 }
 
-.form-container input[type=text]:focus {
+.form-container input[type=text]:focus, input[type=number]:focus, input[type=date]:focus {
   background-color: #9cf7f2;
   transition: 0.3s;
 }
 
-.form-container input[type=text]:hover {
+.form-container input[type=text]:hover, input[type=number]:hover, input[type=date]:hover {
   background-color: #cef6ff;
   transition: 0.3s;
 }

@@ -6,6 +6,7 @@ import Logout from './Logout';
 import AddUser from './AddUser';
 import AddSupermarket from './AddSupermarket';
 import SupermerketView from './SupermarketView';
+import AddTimeSlots from './AddTimeSlots';
 
 class ViewManagerUser extends React.Component {
 
@@ -93,9 +94,10 @@ function RenderAddTimeSlots(props) {
   let { id } = useParams();
 
   return (
-    <div>
-      Add time slots for id: {id}
-    </div>
+    <AddTimeSlots
+      currentUser={props.currentUser}
+      accessToken={props.accessToken}
+      id={id} />
   );
 
 }

@@ -1,41 +1,28 @@
-package com.bstirbat.supermarketscheduler.entity;
+package com.bstirbat.supermarketscheduler.model;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-@Table(name = "time_slot")
-public class TimeSlot {
+public class CreateMultipleTimeSlotsModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "max_appointments")
+    @NotNull
     private Integer maxAppointments;
 
-    @Column(name = "slot_date")
+    @NotNull
     private LocalDate date;
 
-    @Column(name = "start_time")
+    @NotNull
     private LocalTime startTime;
 
-    @Column(name = "stop_time")
+    @NotNull
     private LocalTime stopTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "supermarket_id")
-    private Supermarket supermarket;
+    @NotNull
+    private Long supermarketId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull
+    private Integer durationOfAppointment;
 
     public Integer getMaxAppointments() {
         return maxAppointments;
@@ -69,23 +56,31 @@ public class TimeSlot {
         this.stopTime = stopTime;
     }
 
-    public Supermarket getSupermarket() {
-        return supermarket;
+    public Long getSupermarketId() {
+        return supermarketId;
     }
 
-    public void setSupermarket(Supermarket supermarket) {
-        this.supermarket = supermarket;
+    public void setSupermarketId(Long supermarketId) {
+        this.supermarketId = supermarketId;
+    }
+
+    public Integer getDurationOfAppointment() {
+        return durationOfAppointment;
+    }
+
+    public void setDurationOfAppointment(Integer durationOfAppointment) {
+        this.durationOfAppointment = durationOfAppointment;
     }
 
     @Override
     public String toString() {
-        return "TimeSlot{" +
-                "id=" + id +
-                ", maxAppointments=" + maxAppointments +
+        return "CreateMultipleTimeSlotsModel{" +
+                "maxAppointments=" + maxAppointments +
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", stopTime=" + stopTime +
-                ", supermarket=" + supermarket +
+                ", supermarketId=" + supermarketId +
+                ", durationOfAppointment=" + durationOfAppointment +
                 '}';
     }
 }
