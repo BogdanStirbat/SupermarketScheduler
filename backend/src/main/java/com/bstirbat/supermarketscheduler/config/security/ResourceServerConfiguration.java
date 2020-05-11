@@ -27,7 +27,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/api/users**").hasAnyAuthority("MANAGER_USER", "REGULAR_USER")
                 .antMatchers("/api/supermarkets**").permitAll()
                 .antMatchers("/api/supermarkets/*").permitAll()
-                .antMatchers("/api/timeslots**").hasAnyAuthority("MANAGER_USER", "REGULAR_USER")
+                .antMatchers("/api/timeslots**").permitAll()
+                .antMatchers("/api/timeslots/supermarket/*").permitAll()
                 .antMatchers("/api/appointments**").hasAnyAuthority("MANAGER_USER", "REGULAR_USER")
                 .antMatchers("/api/**").authenticated()
                 .anyRequest().authenticated();

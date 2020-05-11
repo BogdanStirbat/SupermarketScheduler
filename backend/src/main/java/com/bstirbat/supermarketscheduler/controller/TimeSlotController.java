@@ -57,8 +57,18 @@ public class TimeSlotController {
         return timeSlot;
     }
 
+    @GetMapping("/supermarket/{supermarketId}")
+    public List<TimeSlot> allForSupermarket(@PathVariable Long supermarketId, OAuth2Authentication authentication) {
+
+        return (List<TimeSlot>) timeSlotRepository.allForSupermarket(supermarketId);
+    }
+
     @PostMapping
     public List<TimeSlot> create(@Valid @RequestBody CreateMultipleTimeSlotsModel createMultipleTimeSlotsModel, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException("Only manager users have this permission.");
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
@@ -96,6 +106,10 @@ public class TimeSlotController {
 
     @PutMapping
     public TimeSlot update(@PathVariable Long id, @RequestBody CreateTimeSlotModel createTimeSlotModel, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException("Only manager users have this permission.");
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
@@ -130,6 +144,10 @@ public class TimeSlotController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id, OAuth2Authentication authentication) {
+        if (authentication == null) {
+            throw new UnauthorizedException("Only manager users have this permission.");
+        }
+
         String username = (String) authentication.getUserAuthentication().getPrincipal();
 
         User user = userRepository.findByUsername(username);
