@@ -6,7 +6,7 @@ import ViewAnonimUser from './ViewAnonimUser';
 import ViewManagerUser from './ViewManagerUser';
 import ViewRegularUser from './ViewRegularUser';
 
-import {ACCESS_TOKEN, USERNAME, ROLE} from './constants';
+import {ACCESS_TOKEN, USERNAME, ROLE, USERID} from './constants';
 
 class App extends React.Component {
 
@@ -19,9 +19,11 @@ class App extends React.Component {
     let accessToken = localStorage.getItem(ACCESS_TOKEN);
     let username = localStorage.getItem(USERNAME);
     let role = localStorage.getItem(ROLE);
+    let userId = localStorage.getItem(USERID);
     let user = {
       'username': username,
-      'role': role
+      'role': role,
+      'id': userId
     };
     let authenticated = accessToken && accessToken.length > 0;
 
@@ -42,6 +44,7 @@ class App extends React.Component {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
     localStorage.setItem(USERNAME, user.username);
     localStorage.setItem(ROLE, user.role);
+    localStorage.setItem(USERID, user.id);
   }
 
   notifyLogout() {
@@ -54,6 +57,7 @@ class App extends React.Component {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(USERNAME);
     localStorage.removeItem(ROLE);
+    localStorage.removeItem(USERID);
   }
 
   render() {

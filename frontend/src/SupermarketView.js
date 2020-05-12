@@ -2,6 +2,8 @@ import React from 'react';
 import { API_BASE_URL } from "./constants";
 import { Link } from "react-router-dom";
 
+import RenderTimeSlots from './RenderTimeSlots';
+
 class SupermerketView extends React.Component {
 
   constructor(props) {
@@ -14,10 +16,15 @@ class SupermerketView extends React.Component {
       errorMessage: ''
     }
 
+    this.loadSupermarkets = this.loadSupermarkets.bind(this);
     this.loadTimeSlots = this.loadTimeSlots.bind(this);
   }
 
   componentDidMount() {
+    this.loadSupermarkets();
+  }
+
+  loadSupermarkets() {
     const url = API_BASE_URL + '/api/supermarkets/' + this.props.id;
 
     fetch(url, {
@@ -107,7 +114,11 @@ class SupermerketView extends React.Component {
           {this.state.infoMessage}
         </div>
         <SuperMarketContent supermarket={this.state.supermarket} />
-        <RenderTimeSlots timeslots={this.state.timeslots} />
+        <RenderTimeSlots 
+          timeSlots={this.state.timeslots} 
+          currentUser={this.props.currentUser}
+          accessToken={this.props.accessToken} 
+          loadSupermarkets={this.loadSupermarkets} />
         <AddTimeSlots supermarket={this.state.supermarket} currentUser={this.props.currentUser} />
       </div>
     );
@@ -125,33 +136,6 @@ function SuperMarketContent(props) {
     <div className="supermarkets-list">
       <p>{supermarket.name}</p>
       <p>{supermarket.address}</p>
-    </div>
-  );
-}
-
-function RenderTimeSlots(props) {
-  let timeslots = props.timeslots;
-
-  if (!timeslots || timeslots.length == 0) {
-    return null;
-  }
-
-  let listOfTimeSlots = timeslots.map(
-    (timeSlot) => (
-
-      <div key={timeSlot.id.toString()} className="time-slot-element">
-        <div>
-          On {timeSlot.date}, from {timeSlot.startTime} to {timeSlot.stopTime}
-        </div>
-        <div>Max appointments: {timeSlot.maxAppointments}</div>
-        <div>Number of appointments: {timeSlot.nrAppointments}</div>
-      </div>
-    )
-  );
-
-  return (
-    <div className="time-slot-list">
-      {listOfTimeSlots}
     </div>
   );
 }

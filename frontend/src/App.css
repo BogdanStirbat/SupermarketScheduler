@@ -252,3 +252,10 @@ nav p {
   background-color: #30475e;
   transition: 0.3s;
 }
+
+.time-slot-list .need-login-info {
+  font-style: italic;
+  text-align: right;
+  font-size: 0.8em;
+  padding-right: 10px;
+}

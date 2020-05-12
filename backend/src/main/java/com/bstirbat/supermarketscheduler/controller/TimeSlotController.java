@@ -25,6 +25,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -64,6 +65,13 @@ public class TimeSlotController {
 
     @GetMapping("/supermarket/{supermarketId}")
     public List<ViewTimeSlotModel> allForSupermarket(@PathVariable Long supermarketId, OAuth2Authentication authentication) {
+        User loggedInUser = null;
+        if (authentication != null) {
+            String username = (String) authentication.getUserAuthentication().getPrincipal();
+            loggedInUser = userRepository.findByUsername(username);
+        }
+
+        final String currentUserUsername = loggedInUser == null? null: loggedInUser.getUsername();
 
         List<TimeSlot> timeSlots = timeSlotRepository.allForSupermarket(supermarketId);
 
@@ -73,6 +81,11 @@ public class TimeSlotController {
             List<Appointment> appointments = appointmentRepository.findAll(specification);
             int nrAppointments = appointments == null? 0: appointments.size();
 
+            Optional<Appointment> currentUserAppointment = appointments == null? Optional.empty():
+                    appointments.stream()
+                    .filter(a -> a.getUser().getUsername().equals(currentUserUsername))
+                    .findFirst();
+
             ViewTimeSlotModel viewTimeSlotModel = new ViewTimeSlotModel();
             viewTimeSlotModel.setId(timeSlot.getId());
             viewTimeSlotModel.setDate(timeSlot.getDate());
@@ -80,6 +93,11 @@ public class TimeSlotController {
             viewTimeSlotModel.setStopTime(timeSlot.getStopTime());
             viewTimeSlotModel.setMaxAppointments(timeSlot.getMaxAppointments());
             viewTimeSlotModel.setNrAppointments(nrAppointments);
+
+            if (currentUserAppointment.isPresent()) {
+                Appointment appointment = currentUserAppointment.get();
+                viewTimeSlotModel.setAppointmentIdForThisUser(appointment.getId());
+            }
 
             results.add(viewTimeSlotModel);
         }

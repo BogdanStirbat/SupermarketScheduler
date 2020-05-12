@@ -11,6 +11,8 @@ public class ViewTimeSlotModel {
 
     private Integer nrAppointments;
 
+    private Long appointmentIdForThisUser;
+
     private LocalDate date;
 
     private LocalTime startTime;
@@ -39,6 +41,14 @@ public class ViewTimeSlotModel {
 
     public void setNrAppointments(Integer nrAppointments) {
         this.nrAppointments = nrAppointments;
+    }
+
+    public Long getAppointmentIdForThisUser() {
+        return appointmentIdForThisUser;
+    }
+
+    public void setAppointmentIdForThisUser(Long appointmentIdForThisUser) {
+        this.appointmentIdForThisUser = appointmentIdForThisUser;
     }
 
     public LocalDate getDate() {
