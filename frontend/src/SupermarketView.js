@@ -144,6 +144,7 @@ function RenderTimeSlots(props) {
           On {timeSlot.date}, from {timeSlot.startTime} to {timeSlot.stopTime}
         </div>
         <div>Max appointments: {timeSlot.maxAppointments}</div>
+        <div>Number of appointments: {timeSlot.nrAppointments}</div>
       </div>
     )
   );

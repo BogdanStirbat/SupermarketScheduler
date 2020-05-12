@@ -1,19 +1,19 @@
 package com.bstirbat.supermarketscheduler.controller;
 
-import com.bstirbat.supermarketscheduler.entity.Role;
-import com.bstirbat.supermarketscheduler.entity.Supermarket;
-import com.bstirbat.supermarketscheduler.entity.TimeSlot;
-import com.bstirbat.supermarketscheduler.entity.User;
+import com.bstirbat.supermarketscheduler.entity.*;
 import com.bstirbat.supermarketscheduler.exception.NotFoundException;
 import com.bstirbat.supermarketscheduler.exception.UnauthorizedException;
 import com.bstirbat.supermarketscheduler.exception.ValidationFailedException;
 import com.bstirbat.supermarketscheduler.model.CreateMultipleTimeSlotsModel;
 import com.bstirbat.supermarketscheduler.model.CreateTimeSlotModel;
+import com.bstirbat.supermarketscheduler.model.ViewTimeSlotModel;
+import com.bstirbat.supermarketscheduler.repository.AppointmentRepository;
 import com.bstirbat.supermarketscheduler.repository.SupermarketRepository;
 import com.bstirbat.supermarketscheduler.repository.TimeSlotRepository;
 import com.bstirbat.supermarketscheduler.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +35,16 @@ public class TimeSlotController {
 
     private TimeSlotRepository timeSlotRepository;
     private SupermarketRepository supermarketRepository;
+    private AppointmentRepository appointmentRepository;
     private UserRepository userRepository;
 
-    public TimeSlotController(TimeSlotRepository timeSlotRepository, SupermarketRepository supermarketRepository, UserRepository userRepository) {
+    public TimeSlotController(TimeSlotRepository timeSlotRepository,
+                              SupermarketRepository supermarketRepository,
+                              AppointmentRepository appointmentRepository,
+                              UserRepository userRepository) {
         this.timeSlotRepository = timeSlotRepository;
         this.supermarketRepository = supermarketRepository;
+        this.appointmentRepository = appointmentRepository;
         this.userRepository = userRepository;
     }
 
@@ -58,9 +63,28 @@ public class TimeSlotController {
     }
 
     @GetMapping("/supermarket/{supermarketId}")
-    public List<TimeSlot> allForSupermarket(@PathVariable Long supermarketId, OAuth2Authentication authentication) {
+    public List<ViewTimeSlotModel> allForSupermarket(@PathVariable Long supermarketId, OAuth2Authentication authentication) {
 
-        return (List<TimeSlot>) timeSlotRepository.allForSupermarket(supermarketId);
+        List<TimeSlot> timeSlots = timeSlotRepository.allForSupermarket(supermarketId);
+
+        List<ViewTimeSlotModel> results = new ArrayList<>();
+        for (TimeSlot timeSlot: timeSlots) {
+            Specification<Appointment> specification = (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("timeSlot"), timeSlot);
+            List<Appointment> appointments = appointmentRepository.findAll(specification);
+            int nrAppointments = appointments == null? 0: appointments.size();
+
+            ViewTimeSlotModel viewTimeSlotModel = new ViewTimeSlotModel();
+            viewTimeSlotModel.setId(timeSlot.getId());
+            viewTimeSlotModel.setDate(timeSlot.getDate());
+            viewTimeSlotModel.setStartTime(timeSlot.getStartTime());
+            viewTimeSlotModel.setStopTime(timeSlot.getStopTime());
+            viewTimeSlotModel.setMaxAppointments(timeSlot.getMaxAppointments());
+            viewTimeSlotModel.setNrAppointments(nrAppointments);
+
+            results.add(viewTimeSlotModel);
+        }
+
+        return results;
     }
 
     @PostMapping
