@@ -259,3 +259,15 @@ nav p {
   font-size: 0.8em;
   padding-right: 10px;
 }
+
+.appointment-button {
+  padding: 4px 12px;
+  color: #142850;
+  background-color: #00909e;
+}
+
+.appointment-button:hover {
+  color: white;
+  background-color: #30475e;
+  transition: 0.3s;
+}

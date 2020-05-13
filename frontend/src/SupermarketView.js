@@ -66,12 +66,17 @@ class SupermerketView extends React.Component {
 
   loadTimeSlots() {
     const url = API_BASE_URL + '/api/timeslots/supermarket/' + this.props.id;
+    
+    let headers = {
+      'Content-Type': 'application/json'
+    };
+    if (this.props.accessToken && this.props.accessToken.length > 0) {
+      headers['Authorization'] = 'Bearer ' + this.props.accessToken;
+    }
 
     fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: headers
     })
     .then(
       (result) => {
