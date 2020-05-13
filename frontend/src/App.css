@@ -271,3 +271,29 @@ nav p {
   background-color: #30475e;
   transition: 0.3s;
 }
+
+/*
+   View appointments
+*/
+
+.supermarkets-with-appointments-list {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 320px;
+  height: 600px;
+  overflow: scroll;
+  scrollbar-color: #142850 #f9f9f9;
+}
+
+.supermarket-info {
+  margin-bottom: 10px;
+}
+
+.appointment-element {
+  margin-top: 25px;
+}
+
+.appointment-element div {
+  margin-top: 10px;
+}
+

@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect, usePara
 import Home from './Home';
 import Logout from './Logout';
 import SupermerketView from './SupermarketView';
+import AppointmentsView from './AppointmentsView';
 
 class ViewRegularUser extends React.Component {
 
@@ -20,6 +21,9 @@ class ViewRegularUser extends React.Component {
               <ul>
                 <li>
                   <NavLink exact to="/logout" activeClassName="active">Logout</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/view-appointments" activeClassName="active">View appointments</NavLink>
                 </li>
                 <li>
                   <NavLink exact to="/" activeClassName="active">Home</NavLink>
@@ -40,6 +44,11 @@ class ViewRegularUser extends React.Component {
             <Route exact path="/logout">
               <Logout 
                 notifyLogout={this.props.notifyLogout} />
+            </Route>
+            <Route exact path="/view-appointments">
+              <AppointmentsView 
+                currentUser={this.props.currentUser}
+                accessToken={this.props.accessToken} />
             </Route>
             <Route exact path="/login">
               <Redirect to="/" />

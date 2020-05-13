@@ -7,6 +7,7 @@ import AddUser from './AddUser';
 import AddSupermarket from './AddSupermarket';
 import SupermerketView from './SupermarketView';
 import AddTimeSlots from './AddTimeSlots';
+import AppointmentsView from './AppointmentsView';
 
 class ViewManagerUser extends React.Component {
 
@@ -23,6 +24,9 @@ class ViewManagerUser extends React.Component {
               <ul>
                 <li>
                   <NavLink exact to="/logout" activeClassName="active">Logout</NavLink>
+                </li>
+                <li>
+                  <NavLink exact to="/view-appointments" activeClassName="active">View appointments</NavLink>
                 </li>
                 <li>
                   <NavLink exact to="/add-user" activeClassName="active">Add user</NavLink>
@@ -55,6 +59,11 @@ class ViewManagerUser extends React.Component {
             <Route exact path="/logout">
               <Logout 
                 notifyLogout={this.props.notifyLogout} />
+            </Route>
+            <Route exact path="/view-appointments">
+              <AppointmentsView 
+                currentUser={this.props.currentUser}
+                accessToken={this.props.accessToken} />
             </Route>
             <Route exact path="/add-user">
               <AddUser

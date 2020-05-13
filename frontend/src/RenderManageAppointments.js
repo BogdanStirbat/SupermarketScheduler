@@ -70,11 +70,20 @@ class RenderManageAppointments extends React.Component {
     .then(
       (result) => {
         if (result.status == 204) {
+          this.setState({
+            errorMessage: ''
+          });
           this.props.loadSupermarkets();
+        } else {
+          this.setState({
+            errorMessage: 'Error performing action; status: ' + result.status
+          });
         }
       },
       (error) => {
-
+        this.setState({
+          errorMessage: 'Error connecting to the API'
+        });
       }
     );
 
